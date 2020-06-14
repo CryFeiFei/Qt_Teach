@@ -5,4 +5,5 @@ SUBDIRS += \
 	Thread2 \
 	Thread3 \
 	Thread4 \
+	Thread_Muliconsmer \
 	Thread_WaitCondition
