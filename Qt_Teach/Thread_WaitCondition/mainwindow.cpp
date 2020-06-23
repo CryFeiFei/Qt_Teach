@@ -14,6 +14,8 @@
 #include <unistd.h>
 #endif
 
+#define WAIT_TIME 2000
+
 const int DataSize = 1000;
 QStringList listBuffer;
 const int bufferSize = 10;

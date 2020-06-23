@@ -18,6 +18,7 @@ WorkThread::WorkThread(QObject* parent) : QObject (parent)
 }
 WorkThread::~WorkThread()
 {
+	qDebug()<<"WorkThread Destory"<<endl;
 }
 void WorkThread::Start()
 {
@@ -99,10 +100,18 @@ MainWindow::MainWindow(QWidget *parent)
 	//stop之后继续走
 	connect(this, &MainWindow::threadStart, m_worker, &WorkThread::Start);
 
+	connect(m_worker, &WorkThread::workDestory, m_workerThread, [this]()
+	{
+		m_workerThread->quit();
+		m_workerThread->wait();
+	});
+
+	connect(m_workerThread, &QThread::finished, m_worker, &WorkThread::deleteLater);
+	connect(m_worker, &WorkThread::destroyed, m_workerThread, &QThread::deleteLater);
 	//销毁线程
-	connect(m_worker, &WorkThread::workDestory, m_worker, &WorkThread::deleteLater);
-	connect(m_worker, &WorkThread::destroyed, m_workerThread, &QThread::quit);
-	connect(m_workerThread, &QThread::finished, m_workerThread, &QThread::deleteLater);
+//	connect(m_worker, &WorkThread::workDestory, m_worker, &WorkThread::deleteLater);
+//	connect(m_worker, &WorkThread::destroyed, m_workerThread, &QThread::quit);
+//	connect(m_workerThread, &QThread::finished, m_workerThread, &QThread::deleteLater);
 }
 
 MainWindow::~MainWindow()
