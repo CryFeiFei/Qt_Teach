@@ -6,4 +6,5 @@ SUBDIRS += \
 	Thread3 \
 	Thread4 \
 	Thread_Muliconsmer \
-	Thread_WaitCondition
+	Thread_WaitCondition \
+	ViewModel/ViewModel0
