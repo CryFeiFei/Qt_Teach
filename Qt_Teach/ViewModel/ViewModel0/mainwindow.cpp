@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 
 //-------------------------------
-KFileItemModel::KFileItemModel(QObject *parent)
+KFileItemModel::KFileItemModel(QObject *parent) : QAbstractItemModel(parent)
 {
 	m_listInfo = QStringList()<<"1"<<"2"<<"3"<<"4";
 }
@@ -41,7 +41,8 @@ QModelIndex KFileItemModel::index(int row, int column, const QModelIndex& parent
 {
 	if (m_listInfo.size() > row)
 	{
-		return createIndex(row, 0);
+		QString strText = m_listInfo.at(row);
+		return createIndex(row, 0, &strText);
 	}
 	return QModelIndex();
 }
